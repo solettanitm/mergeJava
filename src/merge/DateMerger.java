@@ -15,14 +15,16 @@ public class DateMerger {
 		Map<String, String> map = new HashMap<>();
 		map.put(list.get(0).getSince(), list.get(0).getUntil());
 		String begin = list.get(0).getSince();
-		String temp = list.get(0).getUntil();
+		String end = list.get(0).getUntil();
 		if(list.size() > 1){
 			for (int i = 1; i < list.size() ; i++){
-				if(list.get(i).getSince().compareTo(temp) <= 0){
+				if(list.get(i).getSince().compareTo(end) <= 0 && list.get(i).getUntil().compareTo(end) > 0){
 					map.put(begin, list.get(i).getUntil());
-					temp = list.get(i).getUntil();
-				}else{
+					end = list.get(i).getUntil();
+				}else if(list.get(i).getSince().compareTo(end) > 0){
 					map.put(list.get(i).getSince(), list.get(i).getUntil());
+					begin = list.get(i).getSince();
+					end = list.get(i).getUntil();
 				}
 			}
 		}
